@@ -1,0 +1,362 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Thank-You Town</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Caveat:wght@500;700&family=Nunito:wght@400;600;800&display=swap">
+<style id="app-css">
+/* Layout concept: a cartoon street. Sky band with title on top, grass below with one house per colleague, a road with a walking postie at the bottom. */
+:root{
+  --sky-top:#8fd3ee; --sky-bot:#d9f2fa; --hill:#7fc66b; --ground:#9ad77f; --ground2:#86c96e;
+  --ink:#1f2d38; --muted:#4a5c68; --card:#fffdf8; --line:rgba(31,45,56,.16);
+  --wall:#fbe9c8; --glass:#b9ddf0; --glow:#ffd24d; --door:#8a5a3b; --post:#7a5a3a; --box:#2c6fb5; --flag:#e5372f; --pole:#6b4a2f; --chimney:#a85a45;
+  --accent:#e5372f; --accent-ink:#fff; --paper:#fffaf0; --paper-ink:#3a2e22; --road:#5a636b; --orb:#ffe27a; --cloud:rgba(255,255,255,.9); --star:transparent;
+  --display:'Baloo 2','Trebuchet MS',system-ui,sans-serif; --body:'Nunito',system-ui,sans-serif; --hand:'Caveat','Segoe Script',cursive;
+  --shadow:0 10px 30px rgba(20,40,60,.22);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --sky-top:#0d1830; --sky-bot:#233a66; --hill:#1f5a45; --ground:#18432f; --ground2:#143a29;
+  --ink:#eaf0f7; --muted:#b4c2d1; --card:#1a2540; --line:rgba(234,240,247,.18);
+  --wall:#a79fb8; --glass:#2a3b66; --glow:#ffcf4a; --door:#6d4630; --post:#8c6a48; --box:#5a9be3; --flag:#ff5a4f; --pole:#a98355; --chimney:#6e4036;
+  --accent:#ff5a4f; --accent-ink:#1a0b0a; --road:#2c3239; --orb:#f1efe0; --cloud:rgba(180,200,235,.16); --star:#fff; color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --sky-top:#0d1830; --sky-bot:#233a66; --hill:#1f5a45; --ground:#18432f; --ground2:#143a29;
+  --ink:#eaf0f7; --muted:#b4c2d1; --card:#1a2540; --line:rgba(234,240,247,.18);
+  --wall:#a79fb8; --glass:#2a3b66; --glow:#ffcf4a; --door:#6d4630; --post:#8c6a48; --box:#5a9be3; --flag:#ff5a4f; --pole:#a98355; --chimney:#6e4036;
+  --accent:#ff5a4f; --accent-ink:#1a0b0a; --road:#2c3239; --orb:#f1efe0; --cloud:rgba(180,200,235,.16); --star:#fff; color-scheme:dark;}
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{background:var(--ground);color:var(--ink);font:16px/1.45 var(--body);margin:0}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.gut{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.inner{max-width:1100px;margin:0 auto}
+
+.sky{position:relative;overflow:hidden;background:linear-gradient(var(--sky-top),var(--sky-bot))}
+.sky::before{content:"";position:absolute;inset:0;background-image:radial-gradient(var(--star) 1.2px,transparent 1.6px),radial-gradient(var(--star) .8px,transparent 1.2px);background-size:90px 70px,53px 61px;background-position:10px 8px,30px 30px;opacity:.7}
+.orb{position:absolute;right:12%;top:26px;width:64px;height:64px;border-radius:50%;background:var(--orb);box-shadow:0 0 40px 12px color-mix(in srgb,var(--orb) 45%,transparent)}
+.cloud{position:absolute;height:26px;width:90px;border-radius:30px;background:var(--cloud);animation:drift 60s linear infinite alternate}
+.cloud::before,.cloud::after{content:"";position:absolute;background:inherit;border-radius:50%}
+.cloud::before{width:38px;height:38px;left:14px;top:-18px}.cloud::after{width:28px;height:28px;left:46px;top:-10px}
+.c1{top:40px;left:6%}.c2{top:92px;left:48%;animation-duration:80s;transform:scale(.8)}.c3{top:30px;left:70%;animation-duration:70s;transform:scale(.6)}
+@keyframes drift{from{translate:-30px 0}to{translate:60px 0}}
+.top{position:relative;padding-block:max(28px,calc(env(safe-area-inset-top,0px) + 8px)) 70px;display:flex;flex-wrap:wrap;gap:16px 24px;align-items:flex-end;justify-content:space-between}
+.top h1{font:800 clamp(2rem,6vw,3.4rem)/1 var(--display);margin:0 0 8px;letter-spacing:.01em;text-wrap:balance}
+.top p{margin:0;max-width:52ch;color:var(--ink);opacity:.86}
+.tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{border:2px solid var(--ink);background:var(--card);border-radius:999px;padding:8px 16px;font-weight:800;box-shadow:0 3px 0 var(--ink);transition:transform .12s,box-shadow .12s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 5px 0 var(--ink)}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+.btn.pri{background:var(--accent);color:var(--accent-ink);border-color:var(--ink)}
+.btn.small{padding:4px 12px;font-size:.85rem;box-shadow:0 2px 0 var(--ink)}
+.btn[disabled]{opacity:.5;pointer-events:none}
+.hills{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:60px;display:block}
+.hills path{fill:var(--ground)}
+.hills .back{fill:var(--hill)}
+
+.ground{background:linear-gradient(var(--ground),var(--ground2));padding-block:6px 0}
+.bar{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;justify-content:space-between;margin-bottom:10px}
+.stats{font-weight:800;font-family:var(--display);font-size:1.1rem}
+.find{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.find input{border:2px solid var(--ink);background:var(--card);border-radius:999px;padding:7px 14px;min-width:0;width:min(240px,100%)}
+.teams{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.chip{display:inline-flex;align-items:center;gap:6px;border:2px solid var(--line);background:var(--card);border-radius:999px;padding:2px 12px 2px 8px;font-size:.85rem;font-weight:800}
+.chip i{width:12px;height:12px;border-radius:50%;background:var(--c);display:block}
+.chip[aria-pressed="true"]{border-color:var(--ink)}
+.notice{background:var(--card);border:2px dashed var(--ink);border-radius:14px;padding:10px 14px;margin-bottom:14px;font-weight:600}
+.town{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,160px),1fr));gap:10px 6px;padding-bottom:20px}
+.house{position:relative;background:none;border:0;border-radius:18px;padding:4px 2px 8px;display:flex;flex-direction:column;align-items:center;text-align:center;transition:transform .18s,opacity .2s;min-width:0}
+.house:hover{transform:translateY(-5px)}
+.house.dim{opacity:.28}
+.art{position:relative;width:100%;max-width:190px}
+.art svg{display:block;width:100%;height:auto;overflow:visible}
+.badge{position:absolute;left:79%;top:18%;min-width:24px;height:24px;border-radius:12px;background:var(--accent);color:var(--accent-ink);font:800 .8rem/24px var(--body);padding:0 6px;border:2px solid var(--card);animation:pop .5s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}
+.nm{font:800 1.02rem/1.1 var(--display);overflow-wrap:anywhere;max-width:100%}
+.sub{font-size:.8rem;color:var(--muted);font-weight:600}
+.sign{background:var(--card);border:2px solid var(--line);border-radius:10px;padding:3px 10px 4px;margin-top:-2px;max-width:100%}
+.flag{transition:transform .6s cubic-bezier(.3,1.5,.5,1)}
+.flag.down{transform:rotate(72deg)}
+.env{animation:peek 2.4s ease-in-out infinite}
+@keyframes peek{50%{transform:translateY(-3px)}}
+.smoke circle{animation:puff 3s ease-out infinite;opacity:0}
+.smoke circle:nth-child(2){animation-delay:1s}.smoke circle:nth-child(3){animation-delay:2s}
+@keyframes puff{0%{opacity:.7;transform:translate(0,0) scale(.5)}100%{opacity:0;transform:translate(10px,-34px) scale(1.5)}}
+.road{position:relative;height:46px;background:var(--road);margin-top:6px;overflow:hidden}
+.road::before{content:"";position:absolute;left:0;right:0;top:50%;height:4px;background:repeating-linear-gradient(90deg,#f5e9a8 0 28px,transparent 28px 56px);opacity:.8}
+.postie{position:absolute;left:0;bottom:8px;width:34px;animation:walk 26s linear infinite alternate}
+.postie svg{display:block;width:34px;animation:flip 52s steps(1) infinite,bob .5s ease-in-out infinite}
+@keyframes walk{from{left:0}to{left:calc(100% - 34px)}}
+@keyframes flip{0%{transform:scaleX(1)}50%{transform:scaleX(-1)}}
+@keyframes bob{50%{margin-bottom:3px}}
+.foot{text-align:center;padding-block:14px max(20px,env(safe-area-inset-bottom,0px));background:var(--ground2);font-weight:700;color:var(--ink)}
+.empty{grid-column:1/-1;background:var(--card);border-radius:18px;padding:28px;text-align:center;border:2px solid var(--line)}
+
+.scrim{position:fixed;inset:0;background:rgba(10,20,35,.55);display:flex;align-items:flex-end;justify-content:center;z-index:50;padding:0 0 0}
+.scrim[hidden]{display:none}
+.modal{background:var(--card);width:min(560px,100%);max-height:88vh;overflow:auto;border-radius:24px 24px 0 0;padding:18px max(16px,env(safe-area-inset-left,0px)) max(20px,env(safe-area-inset-bottom,0px));box-shadow:var(--shadow);animation:rise .28s ease-out}
+@keyframes rise{from{transform:translateY(40px);opacity:0}}
+@media(min-width:640px){.scrim{align-items:center}.modal{border-radius:24px;padding:22px}}
+.mh{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:12px}
+.mh h2{font:800 1.6rem/1.1 var(--display);margin:0}
+.x{border:2px solid var(--ink);background:var(--card);border-radius:50%;width:38px;height:38px;font-weight:800;flex:none}
+.letters{display:flex;flex-direction:column;gap:16px}
+.letter{background:var(--paper);color:var(--paper-ink);border-radius:6px;padding:16px 18px 14px;box-shadow:0 4px 12px rgba(0,0,0,.18);transform:rotate(-.6deg);animation:unfold .5s ease-out both;position:relative}
+.letter:nth-child(even){transform:rotate(.7deg)}
+.letter::before{content:"";position:absolute;inset:0 0 auto 0;height:6px;background:repeating-linear-gradient(90deg,#d9534f 0 14px,#fffaf0 14px 20px,#3b7fc4 20px 34px,#fffaf0 34px 40px);border-radius:6px 6px 0 0}
+@keyframes unfold{from{opacity:0;transform:translateY(14px) scale(.96)}}
+.letter p{font:600 1.55rem/1.25 var(--hand);margin:8px 0 10px;white-space:pre-wrap;overflow-wrap:anywhere}
+.letter img{display:block;width:100%;border-radius:4px;margin:8px 0}
+.letter .meta{display:flex;flex-wrap:wrap;gap:6px 12px;justify-content:space-between;font-size:.85rem;font-weight:800;opacity:.8}
+.letter.hl{outline:3px solid var(--accent);outline-offset:3px}
+.ltools{display:flex;gap:8px;margin-top:10px}
+.noletters{text-align:center;padding:20px;color:var(--muted);font-weight:600}
+
+.panel{position:fixed;top:0;right:0;bottom:0;width:min(440px,100%);background:var(--card);z-index:40;box-shadow:var(--shadow);display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px)}
+.panel[hidden]{display:none}
+.ph{padding:14px max(16px,env(safe-area-inset-right,0px)) 0 16px}
+.ph h2{margin:0 0 10px;font:800 1.4rem/1 var(--display)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tab{border:2px solid var(--line);background:none;border-radius:999px;padding:4px 14px;font-weight:800}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--card);border-color:var(--ink)}
+.pb{flex:1;overflow:auto;padding:14px max(16px,env(safe-area-inset-right,0px)) 120px 16px;display:flex;flex-direction:column;gap:12px}
+label{font-weight:800;font-size:.9rem;display:flex;flex-direction:column;gap:4px}
+input[type=text],input[type=date],select,textarea{border:2px solid var(--line);background:var(--bg,transparent);border-radius:12px;padding:8px 12px;width:100%;min-width:0}
+textarea{min-height:110px;resize:vertical}
+.help{font-size:.85rem;color:var(--muted);margin:0}
+.err{color:var(--accent);font-weight:800;margin:0;min-height:1.2em}
+.rrow{display:grid;grid-template-columns:1fr 1fr auto;gap:6px;align-items:center}
+.nrow{display:flex;gap:8px;align-items:center;justify-content:space-between;border:2px solid var(--line);border-radius:12px;padding:6px 10px}
+.nrow span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.9rem}
+.nrow div{display:flex;gap:6px;flex:none}
+.thumb{display:flex;gap:10px;align-items:center}
+.thumb img{width:64px;height:64px;object-fit:cover;border-radius:8px}
+.sav{position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--ink);color:var(--card);display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;padding:12px max(16px,env(safe-area-inset-right,0px)) max(12px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));font-weight:800}
+.sav[hidden]{display:none}
+.sav .btn{border-color:var(--card);box-shadow:0 3px 0 var(--card);color:var(--ink)}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--card);padding:10px 18px;border-radius:999px;font-weight:800;z-index:70;max-width:90vw;text-align:center}
+.toast[hidden]{display:none}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+<div id="app"></div>
+<script type="application/json" id="town-data">{"title":"Thank-You Town","sub":"Every house has a mailbox. A red flag means someone has been thanked. Tap a house to read what people wrote.","sample":true,"residents":[{"id":"r1","name":"Meera","team":"Finance","s":1},{"id":"r2","name":"Karan","team":"Tech","s":1},{"id":"r3","name":"Priya","team":"Support","s":1},{"id":"r4","name":"Rahul","team":"Design","s":1},{"id":"r5","name":"Sana","team":"Tech","s":1},{"id":"r6","name":"Arjun","team":"Finance","s":1},{"id":"r7","name":"Neha","team":"Design","s":1},{"id":"r8","name":"Imran","team":"Support","s":1}],"notes":[{"id":"n1","to":"r1","from":"Karan","text":"Thank you for explaining the budget sheet in April. I was stuck for two days and you fixed it in ten minutes.","date":"2026-12-10","s":1},{"id":"n2","to":"r1","from":"Priya","text":"You always reply with a smile, even on month-end. It makes the day lighter.","date":"2026-12-10","s":1},{"id":"n3","to":"r2","from":"Neha","text":"Thanks for staying up with us on release night in June. We could not have done it without you.","date":"2026-12-10","s":1},{"id":"n4","to":"r3","from":"Rahul","text":"You stayed on the call with an angry client for an hour. Thank you for protecting the whole team.","date":"2026-12-10","s":1},{"id":"n5","to":"r3","from":"","text":"Your calm voice makes every hard day feel manageable.","date":"2026-12-11","s":1},{"id":"n6","to":"r3","from":"Sana","text":"Thank you for always sharing what customers say. It makes our work better.","date":"2026-12-11","s":1},{"id":"n7","to":"r5","from":"Meera","text":"Your quick laptop fix saved my launch day. Thank you!","date":"2026-12-11","s":1}]}</script>
+<script id="app-js">
+(function(){
+var HEAD_HTML='<title>Thank-You Town</title><meta name="claude:viewport-fit-sides" content="cover"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Caveat:wght@500;700&family=Nunito:wght@400;600;800&display=swap">';
+var RESET=':root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}';
+var PALETTE=['#e2574c','#3a86d9','#f2a93b','#4fae6b','#8a63d2','#e0719f','#2fb5b0','#a1704f'];
+var DEFAULT_ROOF='#d9674c';
+var $=function(s,r){return (r||document).querySelector(s)};
+var esc=function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
+var uid=function(p){return p+Date.now().toString(36)+Math.random().toString(36).slice(2,6)};
+var today=function(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+var fmtDate=function(s){try{return new Date(s+'T00:00:00').toLocaleDateString(undefined,{day:'numeric',month:'short'})}catch(e){return ''}};
+var safeImg=function(s){return typeof s==='string'&&/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+\/=]+$/.test(s)};
+
+var state=JSON.parse($('#town-data').textContent);
+var owner=false,editMode=false,dirty=false,saving=false,tab='note',openId=null,query='',teamFilter='',firstRender=true,lastFocus=null;
+var draft=newDraft();
+function newDraft(){return {id:null,to:'',from:'',text:'',date:today(),img:'',err:''}}
+
+var app=$('#app');
+app.innerHTML='<section class="sky"><div class="orb"></div><div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div>'
++'<div class="gut"><div class="inner top"><div><h1 id="ttl"></h1><p id="sub"></p></div><div class="tools" id="tools"></div></div></div>'
++'<svg class="hills" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true"><path class="back" d="M0 40 Q150 0 320 30 T640 24 T980 32 T1200 14 V60 H0Z"/><path d="M0 52 Q200 24 420 46 T820 40 T1200 48 V60 H0Z"/></svg></section>'
++'<section class="ground"><div class="gut"><div class="inner">'
++'<div id="notice"></div>'
++'<div class="bar"><div class="stats" id="stats"></div><div class="find"><input type="text" id="q" placeholder="Find a house" aria-label="Find a house by name" autocomplete="off"><button class="btn small" id="surprise" type="button">Open a random mailbox</button></div></div>'
++'<div class="teams" id="teams"></div><div class="town" id="town"></div></div></div>'
++'<div class="road" aria-hidden="true"><div class="postie"><svg viewBox="0 0 34 44"><circle cx="17" cy="9" r="7" fill="#f1c9a0"/><path d="M8 7a9 9 0 0 1 18 0z" fill="#2c6fb5"/><rect x="7" y="5" width="20" height="3" rx="1.5" fill="#1f4f86"/><rect x="9" y="16" width="16" height="16" rx="4" fill="#2c6fb5"/><rect x="21" y="20" width="10" height="8" rx="1.5" fill="#fffaf0" stroke="#d9534f"/><rect x="10" y="32" width="5" height="10" rx="2" fill="#27456b"/><rect x="19" y="32" width="5" height="10" rx="2" fill="#27456b"/></svg></div></div>'
++'<div class="foot gut">Made with care for the whole team</div></section>'
++'<div class="scrim" id="scrim" hidden><div class="modal" role="dialog" aria-modal="true" aria-labelledby="mt" id="modal"></div></div>'
++'<aside class="panel" id="panel" hidden aria-label="Edit town"></aside>'
++'<div class="sav" id="sav" hidden><span>You have unsaved changes. Visitors see them after you save.</span><span class="tools"><button class="btn small" id="discard" type="button">Discard</button><button class="btn small pri" id="save" type="button">Save to town</button></span></div>'
++'<div class="toast" id="toast" hidden role="status"></div>';
+
+function teamsList(){var t={};state.residents.forEach(function(r){var x=(r.team||'').trim();if(x)t[x]=1});return Object.keys(t).sort()}
+function roofFor(r){var x=(r.team||'').trim();if(!x)return DEFAULT_ROOF;return PALETTE[teamsList().indexOf(x)%PALETTE.length]}
+function notesFor(id){return state.notes.filter(function(n){return n.to===id}).sort(function(a,b){return (b.date||'').localeCompare(a.date||'')})}
+function resident(id){return state.residents.filter(function(r){return r.id===id})[0]}
+
+function houseSVG(roof,count,up){
+  var lit=count>0,smoke=count>=3;
+  return '<svg viewBox="0 0 180 132" aria-hidden="true">'
+  +'<ellipse cx="86" cy="122" rx="82" ry="8" fill="rgba(0,0,0,.14)"/>'
+  +'<rect x="104" y="16" width="13" height="30" fill="var(--chimney)"/>'
+  +(smoke?'<g class="smoke"><circle cx="110" cy="14" r="6" fill="var(--cloud)"/><circle cx="110" cy="14" r="6" fill="var(--cloud)"/><circle cx="110" cy="14" r="6" fill="var(--cloud)"/></g>':'')
+  +'<rect x="22" y="58" width="96" height="60" rx="3" fill="var(--wall)"/>'
+  +'<polygon points="12,62 70,14 128,62" fill="'+roof+'"/><polygon points="12,62 70,14 128,62" fill="none" stroke="rgba(0,0,0,.2)" stroke-width="2"/>'
+  +'<rect x="58" y="82" width="24" height="36" rx="3" fill="var(--door)"/><circle cx="77" cy="101" r="2" fill="var(--glow)"/>'
+  +'<rect x="30" y="70" width="20" height="20" rx="2" fill="'+(lit?'var(--glow)':'var(--glass)')+'" stroke="rgba(0,0,0,.25)"/><path d="M40 70v20M30 80h20" stroke="rgba(0,0,0,.25)"/>'
+  +'<rect x="90" y="70" width="20" height="20" rx="2" fill="'+(lit?'var(--glow)':'var(--glass)')+'" stroke="rgba(0,0,0,.25)"/><path d="M100 70v20M90 80h20" stroke="rgba(0,0,0,.25)"/>'
+  +'<rect x="150" y="84" width="5" height="36" fill="var(--post)"/>'
+  +(count?'<g class="env"><rect x="141" y="56" width="24" height="15" rx="1.5" fill="#fffaf0" stroke="#d9534f" stroke-width="1.5"/><path d="M141 57l12 8 12-8" fill="none" stroke="#d9534f" stroke-width="1.5"/></g>':'')
+  +'<rect x="136" y="66" width="34" height="20" rx="9" fill="var(--box)" stroke="rgba(0,0,0,.25)"/><rect x="140" y="74" width="14" height="3" rx="1.5" fill="rgba(0,0,0,.28)"/>'
+  +'<g class="flag'+(up?'':' down')+'" data-up="'+(count?1:0)+'" style="transform-origin:168px 84px"><rect x="166" y="60" width="3" height="26" fill="var(--pole)"/><rect x="169" y="60" width="13" height="9" rx="1.5" fill="var(--flag)"/></g>'
+  +'</svg>';
+}
+
+function renderTop(){
+  $('#ttl').textContent=state.title||'Thank-You Town';
+  $('#sub').textContent=state.sub||'';
+  document.title=state.title||'Thank-You Town';
+  var t='';
+  if(owner)t+='<button class="btn" id="editbtn" type="button">'+(editMode?'Done editing':'Edit town')+'</button>';
+  $('#tools').innerHTML=t;
+}
+function renderTown(){
+  var q=query.trim().toLowerCase();
+  var total=state.notes.length;
+  $('#stats').textContent=state.residents.length+(state.residents.length===1?' house':' houses')+'  ·  '+total+(total===1?' thank-you':' thank-yous');
+  var tl=teamsList();
+  $('#teams').innerHTML=tl.map(function(x,i){return '<button class="chip" type="button" data-team="'+esc(x)+'" aria-pressed="'+(teamFilter===x)+'" style="--c:'+PALETTE[i%PALETTE.length]+'"><i></i>'+esc(x)+'</button>'}).join('');
+  var anySample=state.residents.some(function(r){return r.s})||state.notes.some(function(n){return n.s});
+  $('#notice').innerHTML=anySample?'<div class="notice">This is a sample town with example names and notes.'+(owner?' Open <b>Edit town</b> to move in your own colleagues, then use <b>Clear samples</b>.':' The real colleagues and notes will appear soon.')+'</div>':'';
+  if(!state.residents.length){$('#town').innerHTML='<div class="empty"><b>No houses yet.</b><br>'+(owner?'Open Edit town and add your colleagues to start building the street.':'The street is being built. Please check back soon.')+'</div>';return}
+  var list=state.residents.slice().sort(function(a,b){return a.name.localeCompare(b.name)});
+  $('#town').innerHTML=list.map(function(r,i){
+    var n=notesFor(r.id).length;
+    var dim=(q&&r.name.toLowerCase().indexOf(q)<0)||(teamFilter&&(r.team||'').trim()!==teamFilter);
+    var up=!firstRender||!n;
+    return '<button class="house'+(dim?' dim':'')+'" type="button" data-id="'+esc(r.id)+'" aria-label="'+esc(r.name)+': '+(n?n+(n===1?' note':' notes'):'no notes yet')+'">'
+      +'<div class="art">'+houseSVG(roofFor(r),n,up)+(n?'<span class="badge">'+n+'</span>':'')+'</div>'
+      +'<div class="sign"><div class="nm">'+esc(r.name)+'</div><div class="sub">'+(r.team?esc(r.team)+'  ·  ':'')+(n?(n===1?'1 note':n+' notes'):'No mail yet')+'</div></div></button>';
+  }).join('');
+  if(firstRender){
+    firstRender=false;
+    var flags=document.querySelectorAll('.flag.down[data-up="1"]');
+    requestAnimationFrame(function(){requestAnimationFrame(function(){flags.forEach(function(f,i){f.style.transitionDelay=(i*90)+'ms';f.classList.remove('down')})})});
+  }
+}
+function renderAll(){renderTop();renderTown();if(!$('#scrim').hidden)renderModal();if(editMode)renderPanel();renderSave()}
+
+function letterHTML(n,hl){
+  var from=(n.from||'').trim();
+  return '<article class="letter'+(hl?' hl':'')+'" data-nid="'+esc(n.id)+'"><p>'+esc(n.text)+'</p>'+(safeImg(n.img)?'<img alt="Photo of the handwritten note" src="'+n.img+'">':'')
+   +'<div class="meta"><span>From '+(from?esc(from):'a friend')+'</span><span>'+esc(fmtDate(n.date))+'</span></div>'
+   +(owner&&editMode?'<div class="ltools"><button class="btn small" type="button" data-edit="'+esc(n.id)+'">Edit</button><button class="btn small" type="button" data-del="'+esc(n.id)+'">Delete</button></div>':'')+'</article>';
+}
+var hlNote=null;
+function renderModal(){
+  var r=resident(openId);if(!r){closeModal();return}
+  var ns=notesFor(openId);
+  $('#modal').innerHTML='<div class="mh"><div><h2 id="mt">'+esc(r.name)+'\'s mailbox</h2><div class="sub">'+(r.team?esc(r.team)+'  ·  ':'')+(ns.length?ns.length+(ns.length===1?' note':' notes'):'Nothing yet')+'</div></div><button class="x" type="button" id="mx" aria-label="Close">&times;</button></div>'
+   +'<div class="letters">'+(ns.length?ns.map(function(n){return letterHTML(n,n.id===hlNote)}).join(''):'<div class="noletters">The flag is down. No notes yet.'+(owner?' Add one from Edit town.':'')+'</div>')+'</div>';
+}
+function openMailbox(id,note){
+  lastFocus=document.activeElement;openId=id;hlNote=note||null;
+  $('#scrim').hidden=false;renderModal();
+  var x=$('#mx');if(x)x.focus();
+  if(note){var el=$('.letter.hl');if(el)el.scrollIntoView({block:'center'})}
+}
+function closeModal(){$('#scrim').hidden=true;openId=null;hlNote=null;if(lastFocus&&lastFocus.focus)lastFocus.focus()}
+
+function opts(sel){return '<option value="">Choose a colleague</option>'+state.residents.slice().sort(function(a,b){return a.name.localeCompare(b.name)}).map(function(r){return '<option value="'+esc(r.id)+'"'+(r.id===sel?' selected':'')+'>'+esc(r.name)+(r.team?' ('+esc(r.team)+')':'')+'</option>'}).join('')}
+function panelNote(){
+  var list=state.notes.slice().sort(function(a,b){return (b.date||'').localeCompare(a.date||'')});
+  return '<p class="help">Add each thank-you here. The recipient\'s flag goes up and an envelope appears in their mailbox.</p>'
+  +'<label>Thanking<select id="dTo">'+opts(draft.to)+'</select></label>'
+  +'<label>From (leave empty to show &ldquo;a friend&rdquo;)<input type="text" id="dFrom" value="'+esc(draft.from)+'" autocomplete="off"></label>'
+  +'<label>Message<textarea id="dText">'+esc(draft.text)+'</textarea></label>'
+  +'<label>Date<input type="date" id="dDate" value="'+esc(draft.date)+'"></label>'
+  +'<div><label>Photo of a handwritten note (optional)<input type="file" id="dImg" accept="image/*"></label>'+(draft.img?'<div class="thumb"><img alt="" src="'+draft.img+'"><button class="btn small" type="button" id="dImgX">Remove photo</button></div>':'')+'</div>'
+  +'<p class="err" id="dErr">'+esc(draft.err)+'</p>'
+  +'<div class="tools"><button class="btn pri" type="button" id="dAdd">'+(draft.id?'Update note':'Put in mailbox')+'</button>'+(draft.id?'<button class="btn" type="button" id="dCancel">Cancel edit</button>':'')+'</div>'
+  +'<h3 style="font:800 1.1rem var(--display);margin:8px 0 0">All notes ('+list.length+')</h3>'
+  +list.map(function(n){var r=resident(n.to);return '<div class="nrow"><span>'+esc(r?r.name:'?')+': '+esc(n.text)+'</span><div><button class="btn small" type="button" data-edit="'+esc(n.id)+'">Edit</button><button class="btn small" type="button" data-del="'+esc(n.id)+'">Delete</button></div></div>'}).join('');
+}
+function panelResidents(){
+  return '<p class="help">Add several colleagues at once. Write one per line, as <b>Name, Team</b>. The team is optional and decides the roof colour.</p>'
+  +'<label>New residents<textarea id="bulk" placeholder="Anita, Design&#10;Vikram, Tech"></textarea></label>'
+  +'<div class="tools"><button class="btn pri" type="button" id="bulkAdd">Move them in</button></div>'
+  +'<h3 style="font:800 1.1rem var(--display);margin:8px 0 0">Residents ('+state.residents.length+')</h3>'
+  +state.residents.slice().sort(function(a,b){return a.name.localeCompare(b.name)}).map(function(r){var n=notesFor(r.id).length;return '<div class="rrow" data-rid="'+esc(r.id)+'"><input type="text" data-f="name" value="'+esc(r.name)+'" aria-label="Name"><input type="text" data-f="team" value="'+esc(r.team||'')+'" placeholder="Team" aria-label="Team"><button class="btn small" type="button" data-rm="'+esc(r.id)+'" data-n="'+n+'">Remove</button></div>'}).join('');
+}
+function panelTown(){
+  var anySample=state.residents.some(function(r){return r.s})||state.notes.some(function(n){return n.s});
+  return '<label>Town name<input type="text" id="tTitle" value="'+esc(state.title)+'"></label>'
+  +'<label>Welcome line<textarea id="tSub">'+esc(state.sub)+'</textarea></label>'
+  +(anySample?'<div class="notice">The example residents and notes are still here.</div><div class="tools"><button class="btn" type="button" id="clearSamples">Clear samples</button></div>':'<p class="help">No sample data left.</p>')
+  +'<p class="help">Changes stay on this screen until you press <b>Save to town</b> at the bottom. After that every visitor sees them.</p>';
+}
+function renderPanel(){
+  var p=$('#panel');p.hidden=!editMode;if(!editMode)return;
+  var keepScroll=$('.pb',p)?$('.pb',p).scrollTop:0;
+  p.innerHTML='<div class="ph"><h2>Edit town</h2><div class="tabs" role="tablist">'
+   +[['note','Notes'],['res','Residents'],['town','Town']].map(function(t){return '<button class="tab" role="tab" type="button" data-tab="'+t[0]+'" aria-selected="'+(tab===t[0])+'">'+t[1]+'</button>'}).join('')+'</div></div>'
+   +'<div class="pb">'+(tab==='note'?panelNote():tab==='res'?panelResidents():panelTown())+'</div>';
+  $('.pb',p).scrollTop=keepScroll;
+}
+function renderSave(){$('#sav').hidden=!(owner&&dirty)}
+function changed(){dirty=true;renderTown();renderSave();if(!$('#scrim').hidden)renderModal()}
+var toastT;function toast(m){var t=$('#toast');t.textContent=m;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(function(){t.hidden=true},3200)}
+
+function readImage(file){return new Promise(function(res,rej){var fr=new FileReader();fr.onload=function(){var im=new Image();im.onload=function(){var s=Math.min(1,900/Math.max(im.width,im.height));var c=document.createElement('canvas');c.width=Math.max(1,Math.round(im.width*s));c.height=Math.max(1,Math.round(im.height*s));var x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.drawImage(im,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',.72))};im.onerror=rej;im.src=fr.result};fr.onerror=rej;fr.readAsDataURL(file)})}
+
+function buildDoc(){
+  var css=$('#app-css').textContent,js=$('#app-js').textContent;
+  var json=JSON.stringify(state).replace(/</g,'\\u003c');
+  var END='<'+'/script>';
+  return '<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>'+RESET+'</style></head><body>'+HEAD_HTML+'<style id="app-css">'+css+'</style><div id="app"></div><script type="application/json" id="town-data">'+json+END+'<script id="app-js">'+js+END+'</body></html>';
+}
+async function save(){
+  if(saving)return;saving=true;$('#save').disabled=true;$('#save').textContent='Saving...';
+  try{
+    var art=await window.claude.use('artifact');
+    if(!art)throw {code:'not_granted'};
+    await art.publish(buildDoc());
+  }catch(e){
+    saving=false;$('#save').disabled=false;$('#save').textContent='Save to town';
+    var c=e&&e.code;
+    toast(c==='conflict'?'Someone saved first. The page is reloading with their version.':(c==='not_writer'||c==='not_granted')?'You can view this town but not change it.':c==='too_large'?'The town is too big. Remove some photos and try again.':c==='rate_limited'?'Saving too fast. Wait a moment and try again.':'Could not save. Check your connection and try again.');
+  }
+}
+
+document.addEventListener('click',function(e){
+  var t=e.target;if(!t.closest)return;
+  var h=t.closest('.house');if(h){openMailbox(h.dataset.id);return}
+  var chip=t.closest('[data-team]');if(chip){teamFilter=teamFilter===chip.dataset.team?'':chip.dataset.team;renderTown();return}
+  if(t.id==='surprise'){if(!state.notes.length){toast('No notes in the town yet.');return}var n=state.notes[Math.floor(Math.random()*state.notes.length)];openMailbox(n.to,n.id);return}
+  if(t.id==='scrim'||t.id==='mx'){closeModal();return}
+  if(t.id==='editbtn'){editMode=!editMode;renderTop();renderPanel();return}
+  if(t.id==='save'){save();return}
+  if(t.id==='discard'){state=JSON.parse($('#town-data').textContent);dirty=false;draft=newDraft();renderAll();toast('Changes discarded.');return}
+  var tb=t.closest('[data-tab]');if(tb&&tb.classList.contains('tab')){tab=tb.dataset.tab;renderPanel();return}
+  var ed=t.closest('[data-edit]');if(ed){var n2=state.notes.filter(function(x){return x.id===ed.dataset.edit})[0];if(n2){draft={id:n2.id,to:n2.to,from:n2.from||'',text:n2.text,date:n2.date||today(),img:n2.img||'',err:''};tab='note';if(!$('#scrim').hidden)closeModal();renderPanel();var pb=$('.pb');if(pb)pb.scrollTop=0}return}
+  var dl=t.closest('[data-del]');if(dl){if(dl.dataset.armed){state.notes=state.notes.filter(function(x){return x.id!==dl.dataset.del});if(draft.id===dl.dataset.del)draft=newDraft();changed();if(editMode)renderPanel()}else{dl.dataset.armed='1';dl.textContent='Tap again to delete'}return}
+  var rm=t.closest('[data-rm]');if(rm){if(rm.dataset.armed){var id=rm.dataset.rm;state.residents=state.residents.filter(function(x){return x.id!==id});state.notes=state.notes.filter(function(x){return x.to!==id});changed();renderPanel()}else{rm.dataset.armed='1';rm.textContent=rm.dataset.n>0?'Delete house and '+rm.dataset.n+' notes?':'Tap again'}return}
+  if(t.id==='dImgX'){draft.img='';renderPanel();return}
+  if(t.id==='dCancel'){draft=newDraft();renderPanel();return}
+  if(t.id==='dAdd'){
+    if(!draft.to){draft.err='Choose who is being thanked.';renderPanel();return}
+    if(!draft.text.trim()){draft.err='Write the thank-you message.';renderPanel();return}
+    var obj={id:draft.id||uid('n'),to:draft.to,from:draft.from.trim(),text:draft.text.trim(),date:draft.date||today()};
+    if(draft.img)obj.img=draft.img;
+    if(draft.id){state.notes=state.notes.map(function(x){return x.id===draft.id?obj:x})}else{state.notes.push(obj)}
+    var rr=resident(obj.to);draft=newDraft();changed();renderPanel();toast('Note placed in '+(rr?rr.name:'the')+'\'s mailbox.');return}
+  if(t.id==='bulkAdd'){
+    var lines=$('#bulk').value.split('\n').map(function(l){return l.trim()}).filter(Boolean);var added=0;
+    lines.forEach(function(l){var p=l.split(',');var nm=p[0].trim();if(!nm)return;state.residents.push({id:uid('r'),name:nm,team:(p.slice(1).join(',')||'').trim()});added++});
+    if(added){changed();renderPanel();toast(added+(added===1?' colleague moved in.':' colleagues moved in.'))}else toast('Type at least one name first.');return}
+  if(t.id==='clearSamples'){state.residents=state.residents.filter(function(r){return !r.s});state.notes=state.notes.filter(function(n){return !n.s});state.sample=false;changed();renderPanel();toast('Sample data cleared.');return}
+});
+document.addEventListener('input',function(e){
+  var t=e.target;
+  if(t.id==='q'){query=t.value;renderTown();return}
+  if(t.id==='dFrom')draft.from=t.value;else if(t.id==='dText')draft.text=t.value;else if(t.id==='dDate')draft.date=t.value;
+  else if(t.id==='tTitle'){state.title=t.value;dirty=true;renderTop();renderSave()}
+  else if(t.id==='tSub'){state.sub=t.value;dirty=true;renderTop();renderSave()}
+  else if(t.dataset&&t.dataset.f){var row=t.closest('[data-rid]');var r=resident(row.dataset.rid);if(r){r[t.dataset.f]=t.value;if(t.dataset.f==='name'&&!t.value.trim())return;changed();}}
+});
+document.addEventListener('change',function(e){
+  var t=e.target;
+  if(t.id==='dTo'){draft.to=t.value}
+  else if(t.id==='dImg'&&t.files&&t.files[0]){readImage(t.files[0]).then(function(d){draft.img=d;renderPanel()}).catch(function(){draft.err='That photo could not be read. Try another one.';renderPanel()})}
+});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!$('#scrim').hidden)closeModal()});
+
+renderAll();
+(async function(){try{var u=window.claude&&window.claude.use?await window.claude.use('user'):null;if(u&&await u.isOwner()){owner=true;renderAll()}}catch(e){}})();
+})();
+</script>
+
+</body></html>
